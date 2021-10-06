@@ -1,0 +1,140 @@
+@extends('layouts.sketchstud')
+@section('content')
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark"><strong>Research Group Registration</strong></h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <form action="filter" method="post">{{ csrf_field() }}
+              <select class="form-control" name='slcrecom' onchange='this.form.submit()'>
+                <option value="-">Number of Group Members</option>
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+              </select>
+              <noscript>
+                  <input type="submit" value="Submit">
+              </noscript>
+            </form>
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <form method="post" action="{{ route('student.researchgroups.store') }}" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <fieldset>
+            <legend>Member 1</legend>
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3">Name</label>
+                    <div class="col-md-6">
+                        <input type="text" name="name1" class="form-control" placeholder="Name" required>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3">Registration Number</label>
+                    <div class="col-md-6">
+                        <input type="text" name="reg1" class="form-control" placeholder="IT Number" required>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3">Contact Number</label>
+                    <div class="col-md-6">
+                        <input type="text" name="phone1" class="form-control" placeholder="Contact Number" required>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3">Email Address</label>
+                    <div class="col-md-6">
+                        <input type="email" name="email1" class="form-control" placeholder="Email Address" required>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3">Specialization</label>
+                    <div class="col-md-6">
+                    <select name="area1" class="form-control">
+                        <option>Specialization Area</option>
+                        <option value="CS">CS</option>
+                        <option value="CSNE">CSNE</option>
+                        <option value="CSSE">CSSE</option>
+                        <option value="DS">DS</option>
+                        <option value="IM">IM</option>
+                        <option value="ISE">ISE</option>
+                        <option value="IT">IT</option>
+                    </select>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-md-3">GPA</label>
+                    <div class="col-md-6">
+                        <input type="text" name="gpa1" class="form-control" placeholder="GPA" required>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                <div class="row">
+                    <label class="col-md-3">Profile Image</label>
+                    <div class="col-md-6">
+                        <input type="file" name="image1" onchange="previewFile(this)" required>
+                        <img id="previewImg" height="150px">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            </fieldset>
+            <div class="form-group">
+                <input type="submit" class="btn btn-info" value="Register">
+            </div>
+            <br><br>
+        </form>
+    </div>
+</section>
+<!-- /.main content -->
+
+<script>
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+        if(file)
+        {
+            var reader = new FileReader();
+            reader.onload = function(){
+                $('#previewImg').attr("src", reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+@endsection
